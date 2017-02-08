@@ -65,16 +65,16 @@ Player.prototype.handleInput = function(keyCode) {
 
     switch(keyCode) {
         case "left":
-            player.x -= player.speed;
+            player.x -= 100;
             break;
         case "right":
-            player.x += player.speed;
+            player.x += 100;
             break;
         case "up":
-            player.y += player.speed - 20;
+            player.y -= 80;
             break;
          case "down":
-            player.y -= player.speed - 20;
+            player.y += 80;
             break;
         default:
             break;
