@@ -7,6 +7,10 @@ var PLAYER_WIDTH = 101;
 var PLAYER_HEIGHT = 171;
 var ENEMY_WIDTH = 101;
 var ENEMY_HEIGHT = 171;
+var LOWER_EDGE_HEIGHT = 60;
+var ROW_HEIGHT = (CANVAS_HEIGHT-LOWER_EDGE_HEIGHT)/6;
+
+var COL_WIDTH = CANVAS_WIDTH/5;
 
 
 // Enemies our player must avoid
@@ -75,16 +79,16 @@ Player.prototype.handleInput = function(keyCode) {
 
     switch(keyCode) {
         case "left":
-            player.x -= 100;
+            player.x -= COL_WIDTH;
             break;
         case "right":
-            player.x += 100;
+            player.x += COL_WIDTH;
             break;
         case "up":
-            player.y -= 80;
+            player.y -= ROW_HEIGHT;
             break;
          case "down":
-            player.y += 80;
+            player.y += ROW_HEIGHT;
             break;
         default:
             break;
@@ -108,7 +112,7 @@ var checkForCollision = function(enemy) {
     //     && player.y + 73 <= enemy.y + 135
     //     && player.x + 76 >= enemy.x + 11) 
 
-        if (Math.abs(enemy.x - player.x) < PLAYER_WIDTH/2 && Math.abs(enemy.y - player.y) < PLAYER_HEIGHT/2) {
+        if (Math.abs(enemy.x - player.x) < PLAYER_WIDTH/3 && Math.abs(enemy.y - player.y) < PLAYER_HEIGHT/3) {
         
         console.log("Collision!");
         
@@ -119,7 +123,7 @@ var checkForCollision = function(enemy) {
     // check for player reaching top of canvas and winning the game
     // if player wins, add 1 to the score and level
     // pass score as an argument to the increaseDifficulty function
-    if (player.y + 63 <= 0) {        
+    if (player.y < ROW_HEIGHT/6) {        
         player.x = PLAYER_START_X;
         player.y = PLAYER_START_Y;
         console.log("You won!");
@@ -141,9 +145,10 @@ var checkForCollision = function(enemy) {
 var setEnemies = function(n) {
     // clear enemies array
     allEnemies = [];
+    console.log(ROW_HEIGHT);
 
     // load new set of enemies
-    for (var i = 0; i <= n; i++) {
+    for (var i = 0; i < n; i++) {
         allEnemies.push(new Enemy(0, Math.random() * 184 + 50, Math.random() * 256));
      }
 };
