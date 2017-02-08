@@ -1,3 +1,13 @@
+// VARIABLES
+var CANVAS_WIDTH = 505;
+var CANVAS_HEIGHT = 606;
+var PLAYER_START_X = 200;
+var PLAYER_START_Y = 600;
+var PLAYER_WIDTH = 101;
+var PLAYER_HEIGHT = 171;
+var ENEMY_WIDTH = 101;
+var ENEMY_HEIGHT = 171;
+
 
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
@@ -22,12 +32,12 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     // wrap around from right to left for enemies only
-    if (this.x >= canvas.width) {
+    if (this.x >= CANVAS_WIDTH) {
         this.x = 0;
     }
 
     // Check for collision with enemies or barrier-walls
-    checkCollision(this);
+    checkForCollision(this);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -86,7 +96,59 @@ Player.prototype.handleInput = function(keyCode) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
-var player = new Player(200, 350);
+var player = new Player(PLAYER_START_X, PLAYER_START_Y);
+
+
+// Handle collisions with enemies or edges
+var checkForCollision = function(enemy) {
+    // check for collision between enemy and player
+    // if (
+    //     player.y + 131 >= enemy.y + 90
+    //     && player.x + 25 <= enemy.x + 88
+    //     && player.y + 73 <= enemy.y + 135
+    //     && player.x + 76 >= enemy.x + 11) 
+
+        if (Math.abs(enemy.x - player.x) < PLAYER_WIDTH/2 && Math.abs(enemy.y - player.y) < PLAYER_HEIGHT/2) {
+        
+        console.log("Collision!");
+        
+        player.x = PLAYER_START_X;
+        player.y = PLAYER_START_Y;
+    }
+
+    // check for player reaching top of canvas and winning the game
+    // if player wins, add 1 to the score and level
+    // pass score as an argument to the increaseDifficulty function
+    if (player.y + 63 <= 0) {        
+        player.x = PLAYER_START_X;
+        player.y = PLAYER_START_Y;
+        console.log("You won!");
+    }
+
+    // check if player hits bottom edge
+    if (player.y > 383 ) {
+        player.y = 383;
+    }
+    if (player.x > 402.5) {
+        player.x = 402.5;
+    }
+    if (player.x < 2.5) {
+        player.x = 2.5;
+    }
+};
+
+// Remove/load enemies onto screen
+var setEnemies = function(n) {
+    // clear enemies array
+    allEnemies = [];
+
+    // load new set of enemies
+    for (var i = 0; i <= n; i++) {
+        allEnemies.push(new Enemy(0, Math.random() * 184 + 50, Math.random() * 256));
+     }
+};
+
+setEnemies(3);
 
 
 // This listens for key presses and sends the keys to your
