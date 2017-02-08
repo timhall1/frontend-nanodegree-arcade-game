@@ -63,7 +63,7 @@ Player.prototype.render = function() {
 
 Player.prototype.handleInput = function(keyCode) {
 
-    switch(keyPress) {
+    switch(keyCode) {
         case "left":
             player.x -= player.speed;
             break;
@@ -71,13 +71,13 @@ Player.prototype.handleInput = function(keyCode) {
             player.x += player.speed;
             break;
         case "up":
-            player.y -= player.speed + 20;
+            player.y += player.speed - 20;
             break;
          case "down":
             player.y -= player.speed - 20;
             break;
         default:
-            code block
+            break;
     }
 };
 
@@ -85,7 +85,8 @@ Player.prototype.handleInput = function(keyCode) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-
+var allEnemies = [];
+var player = new Player(200, 350);
 
 
 // This listens for key presses and sends the keys to your
