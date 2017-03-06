@@ -1,14 +1,21 @@
 // VARIABLES
 var CANVAS_WIDTH = 505;
-var CANVAS_HEIGHT = 606;
+var CANVAS_HEIGHT = 536;
+var LOWER_EDGE_HEIGHT = 40;
+var ROW_HEIGHT = (CANVAS_HEIGHT-LOWER_EDGE_HEIGHT)/6;
+
 var PLAYER_START_X = 200;
 var PLAYER_START_Y = 600;
+
 var PLAYER_WIDTH = 101;
 var PLAYER_HEIGHT = 171;
+
 var ENEMY_WIDTH = 101;
 var ENEMY_HEIGHT = 171;
-var LOWER_EDGE_HEIGHT = 60;
-var ROW_HEIGHT = (CANVAS_HEIGHT-LOWER_EDGE_HEIGHT)/6;
+
+
+
+var ENEMY_HEIGHTS = [ROW_HEIGHT*3 - ROW_HEIGHT/4, ROW_HEIGHT*2 - ROW_HEIGHT/4, ROW_HEIGHT*1 - ROW_HEIGHT/4]
 
 var COL_WIDTH = CANVAS_WIDTH/5;
 
@@ -149,7 +156,8 @@ var setEnemies = function(n) {
 
     // load new set of enemies
     for (var i = 0; i < n; i++) {
-        allEnemies.push(new Enemy(0, Math.random() * 184 + 50, Math.random() * 256));
+        // allEnemies.push(new Enemy(0, Math.random() * 184 + 50, Math.random() * 500 + 50));
+        allEnemies.push(new Enemy(0, ENEMY_HEIGHTS[Math.floor(Math.random() * ENEMY_HEIGHTS.length)], Math.random() * 500 + 50));
      }
 };
 
