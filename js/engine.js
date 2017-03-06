@@ -123,6 +123,9 @@ var Engine = (function(global) {
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
          */
+
+
+        
         for (row = 0; row < numRows; row++) {
             for (col = 0; col < numCols; col++) {
                 /* The drawImage function of the canvas' context element
